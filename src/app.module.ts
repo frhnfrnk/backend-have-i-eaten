@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { ContentModule } from './content/content.module';
 import { User } from './users/user.entity';
 import { Content } from './content/content.entity';
+import { QnaModule } from './qna/qna.module';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -25,6 +26,7 @@ dotenv.config();
     UsersModule,
     AuthModule,
     ContentModule,
+    QnaModule,
   ],
 })
 export class AppModule {}
