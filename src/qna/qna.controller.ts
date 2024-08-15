@@ -12,15 +12,16 @@ import { QnaService } from './qna.service';
 import { Qna } from './qna.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { PremiumGuard } from 'src/auth/premium.guard';
+import { CreateQnaDto, UpdateQnaDto } from './qna.dto';
 
 @Controller('qna')
 export class QnaController {
   constructor(private readonly qnaService: QnaService) {}
 
   @Post()
-  @UseGuards(AuthGuard('jwt'))
-  async create(@Body('question') question: string): Promise<Qna> {
-    return this.qnaService.create(question);
+  @UseGuards(AuthGuard('jwt'), PremiumGuard)
+  async create(@Body('qna') CreateQnaDto: CreateQnaDto): Promise<Qna> {
+    return this.qnaService.create(CreateQnaDto);
   }
 
   @Get()
@@ -39,9 +40,9 @@ export class QnaController {
   @UseGuards(AuthGuard('jwt'))
   async update(
     @Param('id') id: number,
-    @Body('answer') answer: string,
+    @Body('qna') UpdateQnaDto: UpdateQnaDto,
   ): Promise<Qna> {
-    return this.qnaService.update(id, answer);
+    return this.qnaService.update(id, UpdateQnaDto);
   }
 
   @Delete(':id')

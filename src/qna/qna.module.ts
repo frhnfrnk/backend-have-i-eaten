@@ -8,5 +8,6 @@ import { Qna } from './qna.entity';
   imports: [TypeOrmModule.forFeature([Qna])],
   controllers: [QnaController],
   providers: [QnaService],
+  exports: [QnaService],
 })
 export class QnaModule {}

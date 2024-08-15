@@ -1,10 +1,12 @@
-// src/users/user.entity.ts
+import { User } from 'src/users/user.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 
 @Entity()
@@ -17,6 +19,10 @@ export class Qna {
 
   @Column()
   answer: string;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'askerId' })
+  asker: User;
 
   @CreateDateColumn()
   createdAt: Date;
