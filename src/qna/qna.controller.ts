@@ -12,22 +12,35 @@ import { QnaService } from './qna.service';
 import { Qna } from './qna.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { PremiumGuard } from 'src/auth/premium.guard';
-import { CreateQnaDto, UpdateQnaDto } from './qna.dto';
+import { AskDto, CreateQnaDto, UpdateQnaDto } from './qna.dto';
+import { AdminGuard } from 'src/auth/admin.guard';
 
 @Controller('qna')
 export class QnaController {
   constructor(private readonly qnaService: QnaService) {}
 
+  @Post('admin')
+  @UseGuards(AuthGuard('jwt'), AdminGuard)
+  async createFromAdmin(@Body() createQnaDto: CreateQnaDto): Promise<Qna> {
+    return this.qnaService.createFromAdmin(createQnaDto);
+  }
+
   @Post()
   @UseGuards(AuthGuard('jwt'), PremiumGuard)
-  async create(@Body('qna') CreateQnaDto: CreateQnaDto): Promise<Qna> {
-    return this.qnaService.create(CreateQnaDto);
+  async createFromUser(@Body() askDto: AskDto): Promise<Qna> {
+    return this.qnaService.createFromUser(askDto);
   }
 
   @Get()
   @UseGuards(AuthGuard('jwt'), PremiumGuard)
-  async findAll(): Promise<Qna[]> {
-    return this.qnaService.findAll();
+  async findAllFromUser(): Promise<Qna[]> {
+    return this.qnaService.findAllFromUser();
+  }
+
+  @Get('admin')
+  @UseGuards(AuthGuard('jwt'), AdminGuard)
+  async findAllFromAdmin(): Promise<Qna[]> {
+    return this.qnaService.findAllFromAdmin();
   }
 
   @Get(':id')
@@ -37,12 +50,12 @@ export class QnaController {
   }
 
   @Put(':id')
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'), AdminGuard)
   async update(
     @Param('id') id: number,
-    @Body('qna') UpdateQnaDto: UpdateQnaDto,
+    @Body() updateQnaDto: UpdateQnaDto,
   ): Promise<Qna> {
-    return this.qnaService.update(id, UpdateQnaDto);
+    return this.qnaService.update(id, updateQnaDto);
   }
 
   @Delete(':id')

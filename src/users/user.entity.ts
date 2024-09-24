@@ -1,4 +1,5 @@
 // src/users/user.entity.ts
+import { Exclude } from 'class-transformer';
 import {
   Entity,
   Column,
@@ -21,6 +22,7 @@ export class User {
   phoneNumber: string;
 
   @Column()
+  @Exclude()
   password: string;
 
   @CreateDateColumn()

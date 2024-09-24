@@ -3,11 +3,10 @@ import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Request } from 'express';
 
 @Injectable()
-export class PremiumGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
     const request: Request = context.switchToHttp().getRequest();
-    const user = request.user as { premiumUntil: string };
-    if (user && user.premiumUntil && new Date(user.premiumUntil) > new Date()) {
+    if (request.user as { username: string }) {
       return true;
     }
     return false;

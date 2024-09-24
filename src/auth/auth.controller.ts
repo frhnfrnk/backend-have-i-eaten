@@ -4,12 +4,14 @@ import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
+import { AdminService } from 'src/admin/admin.service';
 
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly usersService: UsersService,
+    private readonly adminService: AdminService,
   ) {}
 
   @Post('register')
@@ -33,5 +35,26 @@ export class AuthController {
       return 'Invalid credentials';
     }
     return this.authService.login(user);
+  }
+
+  @Post('admin/login')
+  async loginAdmin(@Body() loginDto: any) {
+    const admin = await this.authService.validateAdmin(
+      loginDto.usename,
+      loginDto.password,
+    );
+    if (!admin) {
+      return 'Invalid credentials';
+    }
+    return this.authService.loginAdmin(admin);
+  }
+
+  @Post('admin/register')
+  async registerAdmin(@Body() createUserDto: any) {
+    const admin = await this.adminService.createUser(
+      createUserDto.username,
+      createUserDto.password,
+    );
+    return this.authService.loginAdmin(admin);
   }
 }

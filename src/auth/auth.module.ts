@@ -7,12 +7,14 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
 import * as dotenv from 'dotenv';
+import { AdminModule } from 'src/admin/admin.module';
 
 dotenv.config();
 
 @Module({
   imports: [
     UsersModule,
+    AdminModule,
     PassportModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,

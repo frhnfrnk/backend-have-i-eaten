@@ -9,6 +9,8 @@ import { Content } from './content/content.entity';
 import { QnaModule } from './qna/qna.module';
 import * as dotenv from 'dotenv';
 import { Qna } from './qna/qna.entity';
+import { AdminModule } from './admin/admin.module';
+import { Admin } from './admin/admin.entity';
 
 dotenv.config();
 
@@ -21,12 +23,13 @@ dotenv.config();
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [User, Content, Qna],
+      entities: [User, Content, Qna, Admin],
       synchronize: true,
     }),
     UsersModule,
     AuthModule,
     ContentModule,
+    AdminModule,
     QnaModule,
   ],
 })
