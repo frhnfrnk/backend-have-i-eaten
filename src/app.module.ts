@@ -13,8 +13,6 @@ import { Qna } from './qna/qna.entity';
 import { AdminModule } from './admin/admin.module';
 import { Admin } from './admin/admin.entity';
 
-dotenv.config();
-
 @Module({
   imports: [
     ConfigModule.forRoot({
