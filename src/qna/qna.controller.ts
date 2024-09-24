@@ -11,7 +11,7 @@ import {
 import { QnaService } from './qna.service';
 import { Qna } from './qna.entity';
 import { AuthGuard } from '@nestjs/passport';
-import { PremiumGuard } from 'src/auth/premium.guard';
+import { PremiumGuard } from '../auth/premium.guard';
 import { AskDto, CreateQnaDto, UpdateQnaDto } from './qna.dto';
 import { AdminGuard } from '../auth/admin.guard';
 

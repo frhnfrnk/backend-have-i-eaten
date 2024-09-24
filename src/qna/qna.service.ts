@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Qna, QnaStatus } from './qna.entity';
 import { AskDto, CreateQnaDto, UpdateQnaDto } from './qna.dto';
-import { User } from 'src/users/user.entity';
-import { Admin } from 'src/admin/admin.entity';
+import { User } from '../users/user.entity';
+import { Admin } from '../admin/admin.entity';
 
 @Injectable()
 export class QnaService {

@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
-import { AdminService } from 'src/admin/admin.service';
+import { AdminService } from '../admin/admin.service';
 
 @Controller('auth')
 export class AuthController {
