@@ -8,6 +8,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
 import * as dotenv from 'dotenv';
 import { AdminModule } from '../admin/admin.module';
+import { ConfigService } from '@nestjs/config';
 
 dotenv.config();
 
@@ -16,9 +17,14 @@ dotenv.config();
     UsersModule,
     AdminModule,
     PassportModule,
-    JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '7d' },
+    JwtModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        secret: config.get<string>('JWT_SECRET'),
+        signOptions: {
+          expiresIn: config.get<string | number>('JWT_EXPIRATION'),
+        },
+      }),
     }),
   ],
   providers: [AuthService, JwtStrategy],
