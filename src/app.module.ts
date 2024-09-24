@@ -21,6 +21,7 @@ dotenv.config();
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         type: 'mysql',
