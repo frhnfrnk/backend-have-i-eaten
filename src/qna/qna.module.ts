@@ -3,9 +3,8 @@ import { QnaController } from './qna.controller';
 import { QnaService } from './qna.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Qna } from './qna.entity';
-import { UsersModule } from 'src/users/users.module';
-import { User } from 'src/users/user.entity';
-import { Admin } from 'src/admin/admin.entity';
+import { User } from '../users/user.entity';
+import { Admin } from '../admin/admin.entity';
 
 @Module({
   imports: [
