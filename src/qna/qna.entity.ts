@@ -36,9 +36,8 @@ export class Qna {
   @Column()
   answer: string;
 
-  @ManyToOne(() => User)
-  @JoinColumn({ name: 'askerId' })
-  asker: User;
+  @Column()
+  askerId: number;
 
   @Column({ type: 'enum', enum: QnaCategory })
   category: QnaCategory;
